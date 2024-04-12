@@ -11,7 +11,7 @@ class DataSaverController < ApplicationController
       json_data = JSON.parse(response.body)
       json_data_features = json_data['features']
 
-      existing_ids = SeismicEvent.pluck(:external_id)
+      existing_ids = Feature.pluck(:external_id)
       new_ids = []
 
       json_data_features.each do |data|
@@ -19,18 +19,22 @@ class DataSaverController < ApplicationController
         new_ids << new_data['external_id']
 
         # Desactiva las validaciones temporalmente para esta operación
-        SeismicEvent.find_or_initialize_by(external_id: new_data['external_id']).tap do |event|
+        Feature.find_or_initialize_by(external_id: new_data['external_id']).tap do |event|
           event.assign_attributes(new_data)
-          event.save(validate: false)
+          event.save(validate: true)
         end
 
-        #SeismicEvent.find_or_initialize_by(external_id: new_data['external_id']).update(new_data)
+        #Feature.find_or_initialize_by(external_id: new_data['external_id']).update(new_data)
       end
 
       # Eliminar los registros que ya no existen en la respuesta de la API
-      SeismicEvent.where.not(external_id: new_ids).delete_all
+      Feature.where.not(external_id: new_ids).delete_all
+      amount_data = Feature.count
 
-      render json: { message: 'Datos de terremotos guardados exitosamente en la base de datos.' }
+      render json: { 
+        message: 'Datos de terremotos guardados exitosamente en la base de datos.',
+        total: amount_data
+      }
     else
       render json: { error: 'Error al obtener datos de terremotos' }, status: :internal_server_error
     end

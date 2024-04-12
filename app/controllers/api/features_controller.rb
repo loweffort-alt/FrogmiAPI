@@ -5,64 +5,79 @@ require 'httparty'
 module Api
   # Controlador que muestra la data obtenida en https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson
   class FeaturesController < ApplicationController
+    before_action :validate_pagination_params, :validate_mag_type_if_exist, only: [:index]
+
     # GET /api/features
     def index
-        # Lógica para manejar la solicitud GET a /api/features
-      response = HTTParty.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson')
+      page = params[:page].to_i
+      per_page = [params[:per_page].to_i, 1000].min
+      offset = (page - 1) * per_page
 
-      if response.success?
-        json_data = JSON.parse(response.body)
-        json_data_features = json_data['features']
-        #EarthquakeModel.delete_all
-        transformed_data = json_data_features.map do |data|
-          save_data__on_database(data)
-          #EarthquakeModel.create!(transform_data(data))
-        end
+      filtered_features = filter_by_mag_type(Feature.all)
+      
+      total_count = filtered_features.count
+      features = filtered_features.limit(per_page).offset(offset)
 
-        render json: transformed_data
-      else
-        render json: { error: 'Error al obtener datos de terremotos' }, status: :internal_server_error
-      end
-    end
-
-    private
-
-    def transform_data(data)
-      {
-        'id' => data['id'],
-        'type' => "feature",
-        'attributes' => {
-          'external_id' => data['id']
-          'magnitude' => data['properties']['mag'],
-          'place' => data['properties']['place'],
-          'time' => data['properties']['time'],
-          'tsunami' => data['properties']['tsunami'] == 1,
-          'mag_type' => data['properties']['magType'],
-          'title' => data['properties']['title'],
-          'coordinates' => {
-            'longitude' => data['geometry']['coordinates'][0],
-            'latitude' => data['geometry']['coordinates'][1]
-          }
-        },
-        'links' => {
-          'external_url' => data['properties']['url'],
+      render json: {
+        data: data_formatter(features),
+        pagination: {
+          current_page: page,
+          total: total_count,
+          per_page: per_page
         }
       }
     end
 
-    def save_data__on_database(data)
-      {
-        'featureid' => data['id'],
-        'propertiesmag' => data['properties']['mag'],
-        'propertiesplace' => data['properties']['place'],
-        'propertiestime' => data['properties']['time'],
-        'propertiesurl' => data['properties']['url'],
-        'propertiestsunami' => data['properties']['tsunami'] == 1,
-        'propertiesmagType' => data['properties']['magType'],
-        'propertiestitle' => data['properties']['title'],
-        'geometrycoordinates0' => data['geometry']['coordinates'][0],
-        'geometrycoordinates1' => data['geometry']['coordinates'][1]
-      }
+    private
+
+    def validate_pagination_params
+      page = params[:page].to_i
+      per_page = params[:per_page].to_i
+
+      redirect_to api_features_path(page: 1, per_page: 1000) if page < 1 || per_page < 1 || per_page > 1000
+    end
+
+    def validate_mag_type_if_exist
+      if params[:mag_type].present?
+        allowed_mag_types = %w(md ml ms mw me mi mb mlg)
+        mag_types = params[:mag_type].split(',')
+
+        redirect_to api_features_path(page: 1, per_page: 1000) if (mag_types - allowed_mag_types).any?
+      end
+    end
+
+    def filter_by_mag_type(features)
+      if params[:mag_type].present?
+        mag_types = params[:mag_type].split(',')
+        features.where(mag_type: mag_types)
+      else
+        features
+      end
+    end
+
+    def data_formatter(data)
+      data.map do |feature|
+        {
+          id: feature.id,
+          type: "feature",
+          attributes: {
+            external_id: feature.external_id,
+            magnitude: feature.magnitude,
+            place: feature.place,
+            time: Time.at(feature.time.to_i / 1000).utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            tsunami: feature.tsunami,
+            mag_type: feature.mag_type,
+            title: feature.title,
+            coordinates: {
+              longitude: feature.longitude,
+              latitude: feature.latitude
+            }
+          },
+          links: {
+            external_url: feature.external_url
+          }
+        }
+      end
     end
 
     # GET /api/features/:id

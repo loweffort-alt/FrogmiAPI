@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :features, only: [:index, :show] do
       resources :comments, only: [:index, :create, :destroy]
+      get '/', action: :index, on: :collection
     end
   end
 end
