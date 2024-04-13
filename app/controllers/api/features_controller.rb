@@ -17,13 +17,19 @@ module Api
       
       total_count = filtered_features.count
       features = filtered_features.limit(per_page).offset(offset)
+      total_count_per_page = features.count
+
+      total_pages = (total_count.to_f / per_page).ceil
 
       render json: {
+        metadata: {
+          total: total_count,
+        },
         data: data_formatter(features),
         pagination: {
           current_page: page,
-          total: total_count,
-          per_page: per_page
+          total: total_pages,
+          per_page: total_count_per_page
         }
       }
     end
