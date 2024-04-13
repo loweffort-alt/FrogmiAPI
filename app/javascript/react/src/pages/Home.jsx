@@ -7,15 +7,13 @@ import MoreInfo from "../components/MoreInfo";
 
 const Home = () => {
   return (
-    <div className="w-full flex justify-between border-2 border-white">
-      <div className="w-full flex justify-between border-[#ededed] border-t-4">
-        <Sidebar />
-        <div className="w-full p-5">
-          <ButtonShow />
-          <ButtonLoad />
-        </div>
-        <MoreInfo />
+    <div className="w-full flex justify-between border-[#ededed] border-t-4">
+      <Sidebar />
+      <div className="w-full p-5">
+        <ButtonShow />
+        <ButtonLoad />
       </div>
+      <MoreInfo />
     </div>
   );
 };
