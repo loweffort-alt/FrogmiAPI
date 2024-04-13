@@ -1,8 +1,9 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import Sidebar from "../components/sidebar/Sidebar";
 import MoreInfo from "../components/MoreInfo";
 import MainContent from "../components/content/MainContent";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [apiData, setApiData] = React.useState(null);
@@ -31,16 +32,19 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full flex justify-between border-[#ededed] border-t-2">
-      <Sidebar apiData={apiData} />
-      <MainContent apiData={apiData} />
-      <MoreInfo />
-    </div>
+    <>
+      <Navbar />
+      <div className="w-full flex justify-between border-[#ededed] border-t-2">
+        <Sidebar apiData={apiData} />
+        <MainContent apiData={apiData} />
+        <MoreInfo />
+      </div>
+    </>
   );
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<Home />, document.getElementById("home"));
+  createRoot(document.getElementById("home")).render(<Home />);
 });
 
 export default Home;
