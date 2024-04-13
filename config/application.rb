@@ -23,5 +23,11 @@ module FrogmiApi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # Permitir solicitudes desde cualquier origen
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
   end
 end
