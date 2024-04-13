@@ -64,7 +64,7 @@ module Api
             external_id: feature.external_id,
             magnitude: feature.magnitude,
             place: feature.place,
-            time: Time.at(feature.time.to_i / 1000).utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            time: feature.time,
             tsunami: feature.tsunami,
             mag_type: feature.mag_type,
             title: feature.title,
