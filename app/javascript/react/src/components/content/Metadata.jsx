@@ -1,11 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
 
-const Metadata = () => {
+const Metadata = ({ dataAmount }) => {
   return (
     <section className="w-full">
       <div className="flex items-center justify-between px-5 py-2">
-        <div className="text-lg font-bold">Showing 234 results</div>
+        <div className="text-lg font-medium">
+          Showing {dataAmount ? dataAmount : 0} results
+        </div>
         <div>
           <button
             id="wea"
@@ -26,7 +28,7 @@ const Metadata = () => {
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                stroke-width="2"
+                strokeWidth="2"
                 d="m1 1 4 4 4-4"
               />
             </svg>

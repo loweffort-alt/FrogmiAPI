@@ -25,7 +25,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="lima" className="w-full hover:cursor-pointer">
+            <label htmlFor="lima" className="w-full hover:cursor-pointer">
               Lima
             </label>
           </div>
@@ -36,7 +36,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="apurimac" className="w-full hover:cursor-pointer">
+            <label htmlFor="apurimac" className="w-full hover:cursor-pointer">
               Apurimac
             </label>
           </div>
@@ -47,7 +47,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="ica" className="w-full hover:cursor-pointer">
+            <label htmlFor="ica" className="w-full hover:cursor-pointer">
               Ica
             </label>
           </div>
@@ -89,7 +89,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="lima2" className="w-full hover:cursor-pointer">
+            <label htmlFor="lima2" className="w-full hover:cursor-pointer">
               Lima
             </label>
           </div>
@@ -100,7 +100,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="apurimac2" className="w-full hover:cursor-pointer">
+            <label htmlFor="apurimac2" className="w-full hover:cursor-pointer">
               Andahuaylas
             </label>
           </div>
@@ -111,7 +111,7 @@ const Filters = () => {
               value=""
               className="w-5 h-5 border-[#c4c6cd] border-2 rounded-sm hover:cursor-pointer"
             />
-            <label for="ica2" className="w-full hover:cursor-pointer">
+            <label htmlFor="ica2" className="w-full hover:cursor-pointer">
               Chincha
             </label>
           </div>

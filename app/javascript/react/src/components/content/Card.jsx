@@ -1,22 +1,26 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
+import TagsCard from "./TagCard";
 
-const Card = () => {
+const Card = ({ info }) => {
   return (
-    <section className="w-full">
+    <>
       <a
         href="#"
-        class="block max-w-full p-6 bg-white border border-gray-200 shadow hover:bg-gray-100 active:border-l-blue-700 active:border-l-4"
+        className="block max-w-full p-6 py-4 bg-white border border-gray-100 shadow hover:bg-gray-100"
       >
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          Noteworthy technology acquisitions 2021
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          {info.attributes.magnitude.toFixed(1)} Ritcher scale · 9 min
         </h5>
-        <p class="font-normal text-gray-700">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
+        <p className="font-normal text-gray-700 mb-3">
+          {info.attributes.place}
         </p>
+        <TagsCard
+          magType={info.attributes.mag_type}
+          tsunami={info.attributes.tsunami}
+        />
       </a>
-    </section>
+    </>
   );
 };
 

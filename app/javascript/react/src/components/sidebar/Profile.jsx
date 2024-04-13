@@ -21,8 +21,8 @@ const Profile = () => {
             </svg>
           </div>
           <div>
-            <h1 className="font-bold">Darío Alexander</h1>
-            <p className="text-lime-700 bg-lime-200 rounded-lg w-fit px-2 py-0.5">
+            <h1 className="font-medium">Darío A. Farfán Navarro</h1>
+            <p className="font-medium text-sm text-lime-800 bg-lime-200 rounded-lg w-fit px-2 py-0.5">
               Active
             </p>
           </div>
@@ -59,7 +59,7 @@ const Profile = () => {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            stroke-width="2"
+            strokeWidth="2"
             d="m1 1 4 4 4-4"
           />
         </svg>
