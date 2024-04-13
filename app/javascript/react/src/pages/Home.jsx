@@ -1,18 +1,14 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import ButtonShow from "../components/ButtonShow";
-import ButtonLoad from "../components/ButtonLoad";
 import Sidebar from "../components/sidebar/Sidebar";
 import MoreInfo from "../components/MoreInfo";
+import MainContent from "../components/content/MainContent";
 
 const Home = () => {
   return (
-    <div className="w-full flex justify-between border-[#ededed] border-t-4">
+    <div className="w-full flex justify-between border-[#ededed] border-t-2">
       <Sidebar />
-      <div className="w-full p-5">
-        <ButtonShow />
-        <ButtonLoad />
-      </div>
+      <MainContent />
       <MoreInfo />
     </div>
   );
