@@ -1,12 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
 
-const Metadata = ({ dataAmount }) => {
+const Metadata = ({ dataAmount, totalDataAmount }) => {
   return (
     <section className="w-full">
       <div className="flex items-center justify-between px-5 py-2">
         <div className="text-lg font-medium">
-          Showing {dataAmount ? dataAmount : 0} results
+          Showing {dataAmount ? dataAmount : 0} results of{" "}
+          {totalDataAmount ? totalDataAmount : 0}
         </div>
         <div>
           <button

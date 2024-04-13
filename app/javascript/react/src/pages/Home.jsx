@@ -34,10 +34,12 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full flex justify-between border-[#ededed] border-t-2">
-        <Sidebar apiData={apiData} />
-        <MainContent apiData={apiData} />
-        <MoreInfo />
+      <div className="flex w-full justify-around h-full">
+        <div className="w-full flex justify-between border-[#ededed] border-t-2">
+          <Sidebar />
+          <MainContent />
+          <MoreInfo />
+        </div>
       </div>
     </>
   );

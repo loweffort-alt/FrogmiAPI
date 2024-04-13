@@ -1,6 +1,50 @@
 import * as React from "react";
 
-const Magnitude = () => {
+const Magnitude = ({ checkboxes }) => {
+  const [realData, setRealData] = React.useState(null);
+
+  const arrayCheckedMagType = Object.keys(checkboxes).filter(
+    (key) => checkboxes[key],
+  );
+
+  const urlFilterByMagType = arrayCheckedMagType.join(",");
+
+  const handleUpdateData = () => {
+    if (arrayCheckedMagType.length) {
+      fetch("http://127.0.0.1:3000/api/features")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Data received:", data);
+          setRealData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          alert("Error loading data.");
+        });
+    } else {
+      fetch("http://127.0.0.1:3000/api/features?page=1&per_page=10")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Data received:", data);
+          setRealData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          alert("Error loading data.");
+        });
+    }
+  };
+
   return (
     <>
       <div className=" p-5">
@@ -29,6 +73,7 @@ const Magnitude = () => {
         <button
           type="button"
           className="m-5 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+          onClick={() => refreshPage()}
         >
           Submit
         </button>

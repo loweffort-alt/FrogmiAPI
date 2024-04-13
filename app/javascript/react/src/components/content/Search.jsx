@@ -1,8 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
 
-const Search = () => {
+const Search = ({ updateLink }) => {
   const inputRef = React.useRef(null);
+  const [searchLink, setSearchLink] = React.useState("http://127.0.0.1:3000");
+
+  function handleChange(event) {
+    const newLink = event.target.value;
+    setSearchLink(newLink);
+
+    updateLink(newLink);
+  }
 
   function focusInput() {
     inputRef.current.focus();
@@ -18,6 +26,8 @@ const Search = () => {
           <input
             type="text"
             placeholder="Search"
+            value={searchLink}
+            onChange={handleChange}
             ref={inputRef}
             className="!outline-none border-none w-full"
             onClick={(e) => e.stopPropagation()}
