@@ -34,6 +34,18 @@ module Api
       }
     end
 
+    # GET /api/features/:id
+    def show
+      if params[:id].present? && params[:id].to_i > 0
+        feature_id = params[:id].to_i
+        element = Feature.find(feature_id)
+
+        render json: element.as_json
+      else
+        render json: { error: 'feature ID is missing' }, status: :bad_request
+      end
+    end
+
     private
 
     def validate_pagination_params
@@ -84,12 +96,6 @@ module Api
           }
         }
       end
-    end
-
-    # GET /api/features/:id
-    def show
-      # Lógica para manejar la solicitud GET a /api/features/:id
-      render json: { message: "GET /api/features/#{params[:id]}" }
     end
   end
 end

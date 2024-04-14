@@ -1,5 +1,6 @@
 class Feature < ApplicationRecord
   self.inheritance_column = :event_type_column_name
+  has_many :comments, dependent: :destroy
 
   # Validaciones
   validates :title, :external_url, :place, :mag_type, :latitude, :longitude, presence: true
