@@ -70,3 +70,4 @@ end
 gem "tailwindcss-rails", "~> 2.4"
 gem "httparty"
 gem 'rack-cors', require: 'rack/cors'
+gem 'minitest-reporters'

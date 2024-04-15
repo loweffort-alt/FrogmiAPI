@@ -4,8 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
+one:
+  external_id: 12345
+  magnitude: 5.0
+  place: "Test Place"
+  time: "2024-04-15T08:33:23.148Z"
+  tsunami: false
+  mag_type: "md"
+  title: "Test Feature"
+  longitude: 123.456
+  latitude: 456.789
 # column: value

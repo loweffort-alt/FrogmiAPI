@@ -6,6 +6,7 @@ module Api
   # Controlador que muestra la data obtenida en https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson
   class FeaturesController < ApplicationController
     before_action :validate_pagination_params, :validate_mag_type_if_exist, only: [:index]
+    rescue_from ActiveRecord::RecordNotFound, with: :feature_not_found
 
     # GET /api/features
     def index
@@ -47,6 +48,10 @@ module Api
     end
 
     private
+
+    def feature_not_found
+      render json: { error: "Feature not found" }, status: :not_found
+    end
 
     def validate_pagination_params
       page = params[:page].to_i

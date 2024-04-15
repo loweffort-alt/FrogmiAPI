@@ -2,6 +2,13 @@ module Api
   class CommentsController < ApplicationController
     before_action :set_feature
     before_action :set_comment, only: [:destroy]
+    skip_before_action :verify_authenticity_token, only: [:create]
+    rescue_from ActiveRecord::RecordNotFound, with: :feature_not_found
+
+    def index
+      comments = @feature.comments
+      render json: comments
+    end
 
     # POST /api/features/:feature_id/comments
     def create
@@ -22,7 +29,6 @@ module Api
 
     private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_feature
       @feature = Feature.find(params[:feature_id])
     end
@@ -31,9 +37,12 @@ module Api
       @comment = @feature.comments.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:body)
+    end
+
+    def feature_not_found
+      render json: { error: "Feature not found" }, status: :not_found
     end
   end
 end
