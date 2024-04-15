@@ -1,13 +1,11 @@
 require "test_helper"
 
 class Api::CommentsControllerTest < ActionDispatch::IntegrationTest
-#  puts "aaaaaaaaaaaaaaaaaaaaaaaa$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
 
   #test "should get index" do
-    #puts "aaaaaaaaaaaaaaaaaaaaaaaa$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     ##puts api_feature_comments_url(feature_id: 1)
     ##feature = features(:one)
-    #get api_feature_comments_url(feature_id: "1") # Asegúrate de reemplazar "1" con un ID válido de una característica existente en tu base de datos
+    #get api_feature_comments_url(feature_id: 1)
     #assert_response :success
   #end
 
