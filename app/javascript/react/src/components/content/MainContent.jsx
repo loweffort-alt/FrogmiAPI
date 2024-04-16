@@ -20,6 +20,7 @@ const MainContent = () => {
       try {
         const response = await fetch(link);
         const jsonData = await response.json();
+        console.log(jsonData);
         setApiData(jsonData);
       } catch (error) {
         setShowData(false);
@@ -28,12 +29,11 @@ const MainContent = () => {
     };
 
     if (link.startsWith("http://127.0.0.1:3000/api/features")) {
+      console.log("q pasa?");
       fetchData(link);
       setShowData(true);
-      console.log("eureka");
     } else {
       setShowData(false);
-      console.log("link no permitido");
     }
     return () => {
       // Cancelar cualquier suscripción, limpieza o reseteo necesario aquí

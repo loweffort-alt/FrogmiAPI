@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_183818) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_221624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_183818) do
   end
 
   create_table "features", force: :cascade do |t|
+    t.string "type", default: "feature"
+    t.string "external_id"
+    t.float "magnitude"
+    t.string "place"
+    t.string "time"
+    t.boolean "tsunami"
+    t.string "mag_type"
+    t.string "title"
+    t.float "longitude"
+    t.float "latitude"
+    t.string "external_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invalid_features", force: :cascade do |t|
     t.string "type", default: "feature"
     t.string "external_id"
     t.float "magnitude"

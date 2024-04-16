@@ -16,6 +16,7 @@ const Navbar = () => {
       .then((data) => {
         console.log("Data received:", data);
         setLoading(false);
+        alert("Data saved on database");
         window.location.reload();
       })
       .catch((error) => {
