@@ -81,7 +81,7 @@ production:
   <<: *default
   database: geoshake
   username: geoshake_user
-  password: <%= ENV["FROGMI_API_DATABASE_PASSWORD"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   #database: frogmi_api_production
   #username: frogmi_api
   #password: <%= ENV["FROGMI_API_DATABASE_PASSWORD"] %>
